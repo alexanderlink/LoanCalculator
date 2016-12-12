@@ -17,11 +17,25 @@ specific language governing permissions and limitations
 under the License.
 -->
 <!DOCTYPE html>
-<html>
+<html ng-app="myApp">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+  <script>
+	var _scope;
+	var myApp = angular.module('myApp', []);
+	myApp.controller('mainController', function($scope) {
+		$scope.message = 'Test';
+		_scope = $scope;
+		
+		function setMessage(msg) {
+			$scope.message = msg;
+		}
+	});
+  </script>
   <style>
   body {
     font-size: 16pt;
@@ -32,11 +46,12 @@ under the License.
   <title>ALX Loan Calculator</title>
 </head>
 <body>
-<div class="container">
+<div class="container" ng-controller="mainController">
 
   <div class="row">
     <div class="col-md-12">
       <h1>ALX Loan Calculator</h1>
+	  {{message}}
     </div>
   </div>
 
@@ -72,6 +87,8 @@ under the License.
   <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
   <script>
 	function calculate() {
+		alert(myApp.controller('mainController'));
+	
 		$('#table').html('');
 		var darlehnsbetrag = $('#darlehnsbetrag').val();
 		var sollzins = $('#sollzins').val() / 100;
@@ -104,7 +121,7 @@ under the License.
 				tilgung += data[m].tilgung;
 			}
 			dataYear[y+1] = {zinsen: zinsen, tilgung: tilgung, restSchuld: rest};
-			$('#table').html($('#table').html() + zinsen + '|' + tilgung + '|' + rest + '<br>');
+			$('#table').html($('#table').html() + zinsen.toFixed(2) + '|' + tilgung.toFixed(2) + '|' + rest.toFixed(2) + '<br>');
 		}
 		
 	}

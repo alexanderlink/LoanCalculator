@@ -29,11 +29,9 @@ under the License.
 	var myApp = angular.module('myApp', []);
 	myApp.controller('mainController', function($scope) {
 		$scope.message = 'Test';
-		_scope = $scope;
-		
-		function setMessage(msg) {
+		$scope.setMessage = function(msg) {
 			$scope.message = msg;
-		}
+		};
 	});
   </script>
   <style>
@@ -46,7 +44,7 @@ under the License.
   <title>ALX Loan Calculator</title>
 </head>
 <body>
-<div class="container" ng-controller="mainController">
+<div class="container" ng-controller="mainController" id="mainController">
 
   <div class="row">
     <div class="col-md-12">
@@ -87,7 +85,11 @@ under the License.
   <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
   <script>
 	function calculate() {
-		alert(myApp.controller('mainController'));
+		//angular.element($('#mainController')).scope().setMessage("clicked");
+		//angular.element($('#mainController')).scope().$apply();
+		_scope.setMessage("clicked");
+		_scope.$apply();
+
 	
 		$('#table').html('');
 		var darlehnsbetrag = $('#darlehnsbetrag').val();
@@ -127,6 +129,7 @@ under the License.
 	}
   
     $(function(){
+		_scope = angular.element($('#mainController')).scope();
 		$('#run').click(calculate);
     });
   </script> 

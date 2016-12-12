@@ -84,14 +84,27 @@ under the License.
 		var rateMonat = rateJahr / 12;
 		
 		var data = [{restSchuld: darlehnsbetrag}];
-		for(var i = 1; i <= 12; i++) {
+		for(var i = 1; i <= zinsbindung * 12; i++) {
 			var prev = data[i-1];
 			var next = {};
 			data[i] = next;
 			next.zinsen = prev.restSchuld * sollzins / 12;
 			next.tilgung = rateMonat - next.zinsen;
 			next.restSchuld = prev.restSchuld - next.tilgung;
-			$('#table').html($('#table').html() + next.zinsen + '|' + next.tilgung + '|' + next.restSchuld + '<br>');
+			//$('#table').html($('#table').html() + next.zinsen + '|' + next.tilgung + '|' + next.restSchuld + '<br>');
+		}
+		
+		var dataYear = [];
+		for(var y = 0; y < zinsbindung; y++) {
+			var zinsen = 0;
+			var tilgung = 0;
+			var rest = data[y*12 + 12].restSchuld;
+			for(var m = y*12 + 1; m <= y*12 + 12; m++) {
+				zinsen += data[m].zinsen;
+				tilgung += data[m].tilgung;
+			}
+			dataYear[y+1] = {zinsen: zinsen, tilgung: tilgung, restSchuld: rest};
+			$('#table').html($('#table').html() + zinsen + '|' + tilgung + '|' + rest + '<br>');
 		}
 		
 	}

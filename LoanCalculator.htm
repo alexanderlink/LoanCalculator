@@ -40,6 +40,12 @@ under the License.
     font-weight: bolder;
     font-family: "Lucida Console", Monaco, monospace;
   }
+  div {
+	text-align: right;
+  }
+  div.container > div.row:nth-of-type(even) {
+    background: #eee;
+  }
   </style>
   <title>ALX Loan Calculator</title>
 </head>
@@ -70,6 +76,46 @@ under the License.
 	<div class="col-md-9"><input id="anfangstilgung" value="3.0"/></div>
   </div>
   <div class="row">
+    <div class="col-md-3">Alter:</div>
+	<div class="col-md-9"><input id="alter" value="36"/></div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">sollzinsBetrag:</div>
+	<div class="col-md-9" id="sollzinsBetrag"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">anfangstilgungBetrag:</div>
+	<div class="col-md-9" id="anfangstilgungBetrag"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">rateJahr:</div>
+	<div class="col-md-9" id="rateJahr"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">rateMonat:</div>
+	<div class="col-md-9" id="rateMonat"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">zinsSumme:</div>
+	<div class="col-md-9" id="zinsSumme"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">tilgungSumme:</div>
+	<div class="col-md-9" id="tilgungSumme"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">summeAlles:</div>
+	<div class="col-md-9" id="summeAlles"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">restSchuld:</div>
+	<div class="col-md-9" id="restSchuld"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">alterZinsBindung:</div>
+	<div class="col-md-9" id="alterZinsBindung"></div>
+  </div>
+  <div class="row">
     <div class="col-md-3"></div>
 	<div class="col-md-9"><input type="button" id="run" value="berechnen"/></div>
   </div>
@@ -79,7 +125,7 @@ under the License.
 	</div>
   </div>
   
-  
+  <br><br><br>
 </div>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
@@ -96,11 +142,22 @@ under the License.
 		var sollzins = $('#sollzins').val() / 100;
 		var anfangstilgung = $('#anfangstilgung').val() / 100;
 		var zinsbindung = $('#zinsbindung').val();
+		var alter = $('#alter').val();
 		
 		var sollzinsBetrag = darlehnsbetrag * sollzins;
 		var anfangstilgungBetrag = darlehnsbetrag * anfangstilgung;
 		var rateJahr = sollzinsBetrag + anfangstilgungBetrag;
 		var rateMonat = rateJahr / 12;
+		var alterZinsBindung = 1*alter+ 1*zinsbindung;
+		$('#sollzinsBetrag').html(sollzinsBetrag.toFixed(2));
+		$('#anfangstilgungBetrag').html(anfangstilgungBetrag.toFixed(2));
+		$('#rateJahr').html(rateJahr.toFixed(2));
+		$('#rateMonat').html(rateMonat.toFixed(2));
+		$('#alterZinsBindung').html(alterZinsBindung);
+		
+		var zinsSumme = 0;
+		var tilgungSumme = 0;
+		var restSchuld = 0;
 		
 		var data = [{restSchuld: darlehnsbetrag}];
 		for(var i = 1; i <= zinsbindung * 12; i++) {
@@ -109,11 +166,23 @@ under the License.
 			data[i] = next;
 			next.zinsen = prev.restSchuld * sollzins / 12;
 			next.tilgung = rateMonat - next.zinsen;
+			if(next.tilgung > prev.restSchuld) next.tilgung = prev.restSchuld;
 			next.restSchuld = prev.restSchuld - next.tilgung;
+			restSchuld = next.restSchuld;
+			zinsSumme += next.zinsen;
+			tilgungSumme += next.tilgung;
 			//$('#table').html($('#table').html() + next.zinsen + '|' + next.tilgung + '|' + next.restSchuld + '<br>');
 		}
+
+		$('#zinsSumme').html(zinsSumme.toFixed(2));
+		$('#tilgungSumme').html(tilgungSumme.toFixed(2));
+		var summeAlles = zinsSumme + tilgungSumme;
+		$('#summeAlles').html(summeAlles.toFixed(2));
+		$('#restSchuld').html(restSchuld.toFixed(2));
+		
 		
 		var dataYear = [];
+		$('#table').html($('#table').html() + 'Year | Zinsen | Tilgung | Rest<br>');
 		for(var y = 0; y < zinsbindung; y++) {
 			var zinsen = 0;
 			var tilgung = 0;
@@ -123,7 +192,8 @@ under the License.
 				tilgung += data[m].tilgung;
 			}
 			dataYear[y+1] = {zinsen: zinsen, tilgung: tilgung, restSchuld: rest};
-			$('#table').html($('#table').html() + zinsen.toFixed(2) + '|' + tilgung.toFixed(2) + '|' + rest.toFixed(2) + '<br>');
+			$('#table').html($('#table').html() + (y<9?'0':'') + (y+1) + ' | ' + zinsen.toFixed(2) + ' € | ' + tilgung.toFixed(2) + ' € | ' + rest.toFixed(2) + ' €<br>');
+			if(rest <= 0) break;
 		}
 		
 	}

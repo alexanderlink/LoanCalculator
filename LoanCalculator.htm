@@ -43,6 +43,9 @@ under the License.
   div {
 	text-align: right;
   }
+  div.left {
+	text-align: left;
+  }
   div.container > div.row:nth-of-type(even) {
     background: #eee;
   }
@@ -55,74 +58,86 @@ under the License.
   <div class="row">
     <div class="col-md-12">
       <h1>ALX Loan Calculator</h1>
-	  {{message}}
     </div>
   </div>
 
   <div class="row">
-    <div class="col-md-3">Darlehnsbetrag:</div>
-	<div class="col-md-9"><input id="darlehnsbetrag" value="70000"/></div>
+    <div class="col-sm-5 left">Darlehnsbetrag €:</div>
+	<div class="col-sm-7"><input id="darlehnsbetrag" value="70000" class="update"/></div>
   </div>
   <div class="row">
-    <div class="col-md-3">Sollzins:</div>
-	<div class="col-md-9"><input id="sollzins" value="1.1"/></div>
+    <div class="col-sm-5 left">Sollzins %:</div>
+	<div class="col-sm-7"><input id="sollzins" value="1.1" class="update"/></div>
   </div>
   <div class="row">
-    <div class="col-md-3">Zinsbindung:</div>
-	<div class="col-md-9"><input id="zinsbindung" value="10"/></div>
+    <div class="col-sm-5 left">Zinsbindung Jahre:</div>
+	<div class="col-sm-7"><input id="zinsbindung" value="10" class="update"/></div>
   </div>
   <div class="row">
-    <div class="col-md-3">Anfangstilgung:</div>
-	<div class="col-md-9"><input id="anfangstilgung" value="3.0"/></div>
+    <div class="col-sm-5 left">Anfangstilgung %:</div>
+	<div class="col-sm-7"><input id="anfangstilgung" value="3.0" class="update"/></div>
   </div>
   <div class="row">
-    <div class="col-md-3">Alter:</div>
-	<div class="col-md-9"><input id="alter" value="36"/></div>
+    <div class="col-sm-5 left">Alter:</div>
+	<div class="col-sm-7"><input id="alter" value="36" class="update"/></div>
   </div>
   <div class="row">
-    <div class="col-md-3">sollzinsBetrag:</div>
-	<div class="col-md-9" id="sollzinsBetrag"></div>
+    <div class="col-sm-5 left">Sollzins Betrag:</div>
+	<div class="col-sm-7" id="sollzinsBetrag"></div>
   </div>
   <div class="row">
-    <div class="col-md-3">anfangstilgungBetrag:</div>
-	<div class="col-md-9" id="anfangstilgungBetrag"></div>
+    <div class="col-sm-5 left">Anfangstilgung Betrag:</div>
+	<div class="col-sm-7" id="anfangstilgungBetrag"></div>
   </div>
   <div class="row">
-    <div class="col-md-3">rateJahr:</div>
-	<div class="col-md-9" id="rateJahr"></div>
+    <div class="col-sm-5 left">Rate / Jahr:</div>
+	<div class="col-sm-7" id="rateJahr"></div>
   </div>
   <div class="row">
-    <div class="col-md-3">rateMonat:</div>
-	<div class="col-md-9" id="rateMonat"></div>
+    <div class="col-sm-5 left">Rate / Monat:</div>
+	<div class="col-sm-7" id="rateMonat"></div>
   </div>
   <div class="row">
-    <div class="col-md-3">zinsSumme:</div>
-	<div class="col-md-9" id="zinsSumme"></div>
+    <div class="col-sm-5 left">Zins Summe:</div>
+	<div class="col-sm-7" id="zinsSumme"></div>
   </div>
   <div class="row">
-    <div class="col-md-3">tilgungSumme:</div>
-	<div class="col-md-9" id="tilgungSumme"></div>
+    <div class="col-sm-5 left">Tilgung Summe:</div>
+	<div class="col-sm-7" id="tilgungSumme"></div>
   </div>
   <div class="row">
-    <div class="col-md-3">summeAlles:</div>
-	<div class="col-md-9" id="summeAlles"></div>
+    <div class="col-sm-5 left">Summe Alles:</div>
+	<div class="col-sm-7" id="summeAlles"></div>
   </div>
   <div class="row">
-    <div class="col-md-3">restSchuld:</div>
-	<div class="col-md-9" id="restSchuld"></div>
+    <div class="col-sm-5 left">Restschuld:</div>
+	<div class="col-sm-7" id="restSchuld"></div>
   </div>
   <div class="row">
-    <div class="col-md-3">alterZinsBindung:</div>
-	<div class="col-md-9" id="alterZinsBindung"></div>
+    <div class="col-sm-5 left">Alter nach Zinsbindung:</div>
+	<div class="col-sm-7" id="alterZinsBindung"></div>
   </div>
   <div class="row">
-    <div class="col-md-3"></div>
-	<div class="col-md-9"><input type="button" id="run" value="berechnen"/></div>
+    <div class="col-sm-5 left"></div>
+	<div class="col-sm-7"><input type="button" value="berechnen" class="update"/></div>
   </div>
   
-  <div class="row">
+  <!--div class="row">
     <div class="col-md-12" id="table">
 	</div>
+  </div-->
+
+  <div class="row">
+	<div class="col-xs-3">Jahr</div>
+	<div class="col-xs-3">Zinsen</div>
+	<div class="col-xs-3">Tilgung</div>
+	<div class="col-xs-3">Restschuld</div>
+  </div>
+  <div class="row" ng-repeat="(index, year) in dataYear" ng-if="index > 0">
+	<div class="col-xs-3">{{index}}</div>
+	<div class="col-xs-3">{{year.zinsen.toFixed(2)}} €</div>
+	<div class="col-xs-3">{{year.tilgung.toFixed(2)}} €</div>
+	<div class="col-xs-3">{{year.restSchuld.toFixed(2)}} €</div>
   </div>
   
   <br><br><br>
@@ -131,18 +146,13 @@ under the License.
   <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
   <script>
 	function calculate() {
-		//angular.element($('#mainController')).scope().setMessage("clicked");
-		//angular.element($('#mainController')).scope().$apply();
-		_scope.setMessage("clicked");
-		_scope.$apply();
-
 	
 		$('#table').html('');
-		var darlehnsbetrag = $('#darlehnsbetrag').val();
+		var darlehnsbetrag = $('#darlehnsbetrag').val() * 1;
 		var sollzins = $('#sollzins').val() / 100;
 		var anfangstilgung = $('#anfangstilgung').val() / 100;
-		var zinsbindung = $('#zinsbindung').val();
-		var alter = $('#alter').val();
+		var zinsbindung = $('#zinsbindung').val() * 1;
+		var alter = $('#alter').val() * 1;
 		
 		var sollzinsBetrag = darlehnsbetrag * sollzins;
 		var anfangstilgungBetrag = darlehnsbetrag * anfangstilgung;
@@ -182,6 +192,7 @@ under the License.
 		
 		
 		var dataYear = [];
+		dataYear[0] = {zinsen: 0, tilgung: 0, restSchuld: darlehnsbetrag};
 		$('#table').html($('#table').html() + 'Year | Zinsen | Tilgung | Rest<br>');
 		for(var y = 0; y < zinsbindung; y++) {
 			var zinsen = 0;
@@ -192,15 +203,20 @@ under the License.
 				tilgung += data[m].tilgung;
 			}
 			dataYear[y+1] = {zinsen: zinsen, tilgung: tilgung, restSchuld: rest};
-			$('#table').html($('#table').html() + (y<9?'0':'') + (y+1) + ' | ' + zinsen.toFixed(2) + ' € | ' + tilgung.toFixed(2) + ' € | ' + rest.toFixed(2) + ' €<br>');
+			//$('#table').html($('#table').html() + (y<9?'0':'') + (y+1) + ' | ' + zinsen.toFixed(2) + ' € | ' + tilgung.toFixed(2) + ' € | ' + rest.toFixed(2) + ' €<br>');
 			if(rest <= 0) break;
 		}
 		
+		_scope.dataYear = dataYear;
+		_scope.$apply();
+
 	}
   
     $(function(){
 		_scope = angular.element($('#mainController')).scope();
-		$('#run').click(calculate);
+		$('.update').click(calculate);
+		$('.update').keyup(calculate);
+		calculate();
     });
   </script> 
   

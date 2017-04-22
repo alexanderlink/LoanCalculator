@@ -4,18 +4,75 @@
    xmlns:mvc="sap.ui.core.mvc"
    >
 
-   <Button
-      text="Say Hello"
-      press="onShowHello"/>
-
+<Panel headerText="Input" expandable="true" expanded="true" width="auto">
+  <content>
    <Input
-      value="{/recipient/name}"
-      description="Hello {/recipient/name}"
-      valueLiveUpdate="true"
-      width="60%"/>
-      
+      value="{/input/darlehnsbetrag}"
+      description="Darlehnsbetrag €"
+      valueLiveUpdate="true" liveChange="calculate" type="Number" width="33%"/>
+
+	<Input description="Sollzins %"
+		value="{/input/sollzins}"
+		valueLiveUpdate="true" liveChange="calculate" width="33%"/>
+
+	<Input description="Zinsbindung Jahre"
+		value="{/input/zinsbindung}"
+		valueLiveUpdate="true" liveChange="calculate" width="33%"/>
+
+	<Input description="Anfangstilgung %"
+		value="{/input/anfangstilgung}"
+		valueLiveUpdate="true" liveChange="calculate" width="33%"/>
+
+	<Input description="Alter"
+		value="{/input/alter}"
+		valueLiveUpdate="true" liveChange="calculate" width="33%"/>
+
+	<Input description="Sollzins Betrag"
+		value="{/input/sollzinsBetrag}"
+		valueLiveUpdate="true" liveChange="calculate" width="33%"/>
+  </content>
+</Panel>
+
+<Panel headerText="Output" expandable="true" expanded="true" width="auto">
+  <content>
+	<Input description="Anfangstilgung Betrag"
+		value="{/input/anfangstilgungBetrag}"
+		valueLiveUpdate="true" enabled="false" width="33%"/>
+
+	<Input description="Rate / Jahr"
+		value="{/input/rateJahr}"
+		valueLiveUpdate="true" enabled="false" width="33%"/>
+
+	<Input description="Rate / Monat"
+		value="{/input/rateMonat}"
+		valueLiveUpdate="true" enabled="false" width="33%"/>
+
+	<Input description="Zins Summe"
+		value="{/input/zinsSumme}"
+		valueLiveUpdate="true" enabled="false" width="33%"/>
+
+	<Input description="Tilgung Summe"
+		value="{/input/tilgungSumme}"
+		valueLiveUpdate="true" enabled="false" width="33%"/>
+
+	<Input description="Summe Alles"
+		value="{/input/summeAlles}"
+		valueLiveUpdate="true" enabled="false" width="33%"/>
+
+	<Input description="Restschuld"
+		value="{/input/restSchuld}"
+		valueLiveUpdate="true" enabled="false" width="33%"/>
+
+	<Input description="Alter nach Zinsbindung"
+		value="{/input/alterZinsBindung}"
+		valueLiveUpdate="true" enabled="false" width="33%"/>
+  </content>
+</Panel>
 
 
+
+<Panel headerText="Table" expandable="true" expanded="true" width="auto">
+  <content>
     <Table
 		inset="false"
 		items="{
@@ -24,11 +81,6 @@
 				path: 'Name'
 			}
 		}">
-		<headerToolbar>
-			<Toolbar>
-				<Title text="Products" level="H2"/>
-			</Toolbar>
-		</headerToolbar>
 		<columns>
 			<Column
 				width="12em">
@@ -52,5 +104,7 @@
 			</ColumnListItem>
 		</items>
     </Table>
+  </content>
+</Panel>
 
 </mvc:View>

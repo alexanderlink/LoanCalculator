@@ -2,6 +2,7 @@
    controllerName="de.alxsoft.controller.App"
    xmlns="sap.m"
    xmlns:mvc="sap.ui.core.mvc"
+   xmlns:u="sap.ui.unified"
    >
 
 <Panel headerText="Input" expandable="true" expanded="true" width="auto">
@@ -33,7 +34,7 @@
   </content>
 </Panel>
 
-<Panel headerText="Output" expandable="true" expanded="true" width="auto">
+<Panel headerText="Output" expandable="true" expanded="false" width="auto">
   <content>
 	<Input description="Anfangstilgung Betrag"
 		value="{/input/anfangstilgungBetrag}"
@@ -75,31 +76,28 @@
   <content>
     <Table
 		inset="false"
-		items="{
-			path: '/mytable',
-			sorter: {
-				path: 'Name'
-			}
-		}">
+		items="{path: '/dataYear'}">
 		<columns>
-			<Column
-				width="12em">
-				<Text text="Name" />
+			<Column>
+				<Text text="Jahr" />
 			</Column>
-			<Column
-				minScreenWidth="Tablet"
-				demandPopin="true">
-				<Text text="ID" />
+			<Column width="8em">
+				<Text text="Zinsen" />
+			</Column>
+			<Column width="8em" minScreenWidth="Tablet" demandPopin="true">
+				<Text text="Tilgung" />
+			</Column>
+			<Column width="8em" minScreenWidth="Tablet" demandPopin="true">
+				<Text text="Restschuld" />
 			</Column>
 		</columns>
 		<items>
 			<ColumnListItem>
 				<cells>
-					<ObjectIdentifier
-						title="{Name}"
-						text="{name}"/>
-					<Text
-						text="{id}" />
+					<Text text="{year}" />
+					<u:Currency value="{zinsen}" currency="EUR" useSymbol="true" />
+					<u:Currency value="{tilgung}" currency="EUR" useSymbol="true" />
+					<u:Currency value="{restSchuld}" currency="EUR" useSymbol="true" />
 				</cells>
 			</ColumnListItem>
 		</items>

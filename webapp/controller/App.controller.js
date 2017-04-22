@@ -25,14 +25,11 @@ sap.ui.define([
                 summeAlles: 0,
                 restSchuld: 0,
                 alterZinsBindung: 0
-            },
-            mytable: [
-                {                    name: "Test",                    id: "sefsdf"                },
-                { name: "Test2", id: "sdfsdf"}
-            ]
+            }
          };
          var oModel = new JSONModel(oData);
          this.getView().setModel(oModel);
+         this.calculate();
       },
       onShowHello : function () {
          // show a native JavaScript alert
@@ -40,11 +37,11 @@ sap.ui.define([
       },
       calculate: function() {
         var model = this.getView().getModel();
-		var darlehnsbetrag = model.getProperty('/input/darlehnsbetrag');
+		var darlehnsbetrag = model.getProperty('/input/darlehnsbetrag') * 1;
 		var sollzins = model.getProperty('/input/sollzins') / 100;
 		var anfangstilgung = model.getProperty('/input/anfangstilgung') / 100;
-		var zinsbindung = model.getProperty('/input/zinsbindung');
-		var alter = model.getProperty('/input/alter');
+		var zinsbindung = model.getProperty('/input/zinsbindung') * 1;
+		var alter = model.getProperty('/input/alter') * 1;
 		
 		var sollzinsBetrag = darlehnsbetrag * sollzins;
 		var anfangstilgungBetrag = darlehnsbetrag * anfangstilgung;
@@ -84,10 +81,9 @@ sap.ui.define([
 		model.setProperty('/input/summeAlles', summeAlles);
 		model.setProperty('/input/restSchuld', restSchuld);
 		
-		/*
+		
 		var dataYear = [];
-		dataYear[0] = {zinsen: 0, tilgung: 0, restSchuld: darlehnsbetrag};
-		$('#table').html($('#table').html() + 'Year | Zinsen | Tilgung | Rest<br>');
+		dataYear[0] = {year: '', zinsen: 0, tilgung: 0, restSchuld: darlehnsbetrag};
 		for(var y = 0; y < zinsbindung; y++) {
 			var zinsen = 0;
 			var tilgung = 0;
@@ -96,14 +92,11 @@ sap.ui.define([
 				zinsen += data[m].zinsen;
 				tilgung += data[m].tilgung;
 			}
-			dataYear[y+1] = {zinsen: zinsen, tilgung: tilgung, restSchuld: rest};
-			//$('#table').html($('#table').html() + (y<9?'0':'') + (y+1) + ' | ' + zinsen.toFixed(2) + ' € | ' + tilgung.toFixed(2) + ' € | ' + rest.toFixed(2) + ' €<br>');
+			dataYear[y+1] = {year: y+1, zinsen: zinsen, tilgung: tilgung, restSchuld: rest};
 			if(rest <= 0) break;
 		}
-		
-		_scope.dataYear = dataYear;
-		_scope.$apply();
-        */
+        model.setProperty('/dataYear', dataYear);
+
       }
 
    });

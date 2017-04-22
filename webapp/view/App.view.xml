@@ -2,7 +2,6 @@
    controllerName="de.alxsoft.controller.App"
    xmlns="sap.m"
    xmlns:mvc="sap.ui.core.mvc"
-   xmlns:t="sap.ui.table"
    >
 
    <Button
@@ -17,25 +16,41 @@
       
 
 
-    <t:Table
-        rows="{/mytable}"
-        title="Test"
-        selectionMode="MultiToggle"
-        visibleRowCount="7">
-        <t:columns>
-            <t:Column width="11rem">
-                <Label text="Name" />
-                <t:template>
-                    <Text text="{name}"/>
-                </t:template>
-            </t:Column>
-            <t:Column width="11rem">
-                <Label text="Id" />
-                <t:template>
-                    <Input value="{id}"/>
-                </t:template>
-            </t:Column>
-        </t:columns>
-    </t:Table>
+    <Table
+		inset="false"
+		items="{
+			path: '/mytable',
+			sorter: {
+				path: 'Name'
+			}
+		}">
+		<headerToolbar>
+			<Toolbar>
+				<Title text="Products" level="H2"/>
+			</Toolbar>
+		</headerToolbar>
+		<columns>
+			<Column
+				width="12em">
+				<Text text="Name" />
+			</Column>
+			<Column
+				minScreenWidth="Tablet"
+				demandPopin="true">
+				<Text text="ID" />
+			</Column>
+		</columns>
+		<items>
+			<ColumnListItem>
+				<cells>
+					<ObjectIdentifier
+						title="{Name}"
+						text="{name}"/>
+					<Text
+						text="{id}" />
+				</cells>
+			</ColumnListItem>
+		</items>
+    </Table>
 
 </mvc:View>

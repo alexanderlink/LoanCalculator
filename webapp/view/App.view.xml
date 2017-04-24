@@ -5,31 +5,40 @@
    xmlns:u="sap.ui.unified"
    >
 
+<TabContainer items="{ path: '/tabs' }" id="myTabContainer"
+				showAddNewButton="true"
+				addNewButtonPress="addNewButtonPressHandler" itemClose="itemCloseHandler">
+	<items >
+		<TabContainerItem name="{input/darlehnsbetrag}" modified="false">
+			<content>
+
+
+
 <Panel headerText="Input" expandable="true" expanded="true" width="auto">
   <content>
    <Input
-      value="{/input/darlehnsbetrag}"
+      value="{input/darlehnsbetrag}"
       description="Darlehnsbetrag €"
       valueLiveUpdate="true" liveChange="calculate" type="Number" width="33%"/>
 
 	<Input description="Sollzins %"
-		value="{/input/sollzins}"
+		value="{input/sollzins}"
 		valueLiveUpdate="true" liveChange="calculate" width="33%"/>
 
 	<Input description="Zinsbindung Jahre"
-		value="{/input/zinsbindung}"
+		value="{input/zinsbindung}"
 		valueLiveUpdate="true" liveChange="calculate" width="33%"/>
 
 	<Input description="Anfangstilgung %"
-		value="{/input/anfangstilgung}"
+		value="{input/anfangstilgung}"
 		valueLiveUpdate="true" liveChange="calculate" width="33%"/>
 
 	<Input description="Alter"
-		value="{/input/alter}"
+		value="{input/alter}"
 		valueLiveUpdate="true" liveChange="calculate" width="33%"/>
 
 	<Input description="Sollzins Betrag"
-		value="{/input/sollzinsBetrag}"
+		value="{input/sollzinsBetrag}"
 		valueLiveUpdate="true" liveChange="calculate" width="33%"/>
   </content>
 </Panel>
@@ -37,35 +46,35 @@
 <Panel headerText="Output" expandable="true" expanded="false" width="auto">
   <content>
 	<Input description="Anfangstilgung Betrag"
-		value="{/input/anfangstilgungBetrag}"
+		value="{input/anfangstilgungBetrag}"
 		valueLiveUpdate="true" enabled="false" width="33%"/>
 
 	<Input description="Rate / Jahr"
-		value="{/input/rateJahr}"
+		value="{input/rateJahr}"
 		valueLiveUpdate="true" enabled="false" width="33%"/>
 
 	<Input description="Rate / Monat"
-		value="{/input/rateMonat}"
+		value="{input/rateMonat}"
 		valueLiveUpdate="true" enabled="false" width="33%"/>
 
 	<Input description="Zins Summe"
-		value="{/input/zinsSumme}"
+		value="{input/zinsSumme}"
 		valueLiveUpdate="true" enabled="false" width="33%"/>
 
 	<Input description="Tilgung Summe"
-		value="{/input/tilgungSumme}"
+		value="{input/tilgungSumme}"
 		valueLiveUpdate="true" enabled="false" width="33%"/>
 
 	<Input description="Summe Alles"
-		value="{/input/summeAlles}"
+		value="{input/summeAlles}"
 		valueLiveUpdate="true" enabled="false" width="33%"/>
 
 	<Input description="Restschuld"
-		value="{/input/restSchuld}"
+		value="{input/restSchuld}"
 		valueLiveUpdate="true" enabled="false" width="33%"/>
 
 	<Input description="Alter nach Zinsbindung"
-		value="{/input/alterZinsBindung}"
+		value="{input/alterZinsBindung}"
 		valueLiveUpdate="true" enabled="false" width="33%"/>
   </content>
 </Panel>
@@ -76,7 +85,7 @@
   <content>
     <Table
 		inset="false"
-		items="{path: '/dataYear'}">
+		items="{path: 'dataYear'}">
 		<columns>
 			<Column>
 				<Text text="Jahr" />
@@ -104,5 +113,12 @@
     </Table>
   </content>
 </Panel>
+
+
+
+			</content>
+		</TabContainerItem>
+	</items>
+</TabContainer>
 
 </mvc:View>

@@ -7,41 +7,76 @@ sap.ui.define([
       onInit : function () {
          // set data model on view
          var oData = {
-            recipient : {
-               name : "WorldX"
-            },
-            input: {
-                darlehnsbetrag: 70000,
-                sollzins: 1.1,
-                zinsbindung: 10,
-                anfangstilgung: 3.0,
-                alter: 36,
-                sollzinsBetrag: 0,
-                anfangstilgungBetrag: 0,
-                rateJahr: 0,
-                rateMonat: 0,
-                zinsSumme: 0,
-                tilgungSumme: 0,
-                summeAlles: 0,
-                restSchuld: 0,
-                alterZinsBindung: 0
-            }
+			tabs: [{
+				input: {
+					darlehnsbetrag: 70000,
+					sollzins: 1.1,
+					zinsbindung: 10,
+					anfangstilgung: 3.0,
+					alter: 36,
+					sollzinsBetrag: 0,
+					anfangstilgungBetrag: 0,
+					rateJahr: 0,
+					rateMonat: 0,
+					zinsSumme: 0,
+					tilgungSumme: 0,
+					summeAlles: 0,
+					restSchuld: 0,
+					alterZinsBindung: 0
+				}
+				/*
+				, dataYear: [
+					{year: '', zinsen: 0, tilgung: 0, restSchuld: 0}
+				]
+				*/
+			},
+			{
+				input: {
+					darlehnsbetrag: 80000,
+					sollzins: 1.1,
+					zinsbindung: 10,
+					anfangstilgung: 3.0,
+					alter: 36,
+					sollzinsBetrag: 0,
+					anfangstilgungBetrag: 0,
+					rateJahr: 0,
+					rateMonat: 0,
+					zinsSumme: 0,
+					tilgungSumme: 0,
+					summeAlles: 0,
+					restSchuld: 0,
+					alterZinsBindung: 0
+				}
+				/*
+				, dataYear: [
+					{year: '', zinsen: 0, tilgung: 0, restSchuld: 0}
+				]
+				*/
+			}]
          };
          var oModel = new JSONModel(oData);
          this.getView().setModel(oModel);
          this.calculate();
       },
-      onShowHello : function () {
-         // show a native JavaScript alert
-         alert("Hello World");
-      },
-      calculate: function() {
-        var model = this.getView().getModel();
-		var darlehnsbetrag = model.getProperty('/input/darlehnsbetrag') * 1;
-		var sollzins = model.getProperty('/input/sollzins') / 100;
-		var anfangstilgung = model.getProperty('/input/anfangstilgung') / 100;
-		var zinsbindung = model.getProperty('/input/zinsbindung') * 1;
-		var alter = model.getProperty('/input/alter') * 1;
+      calculate: function(element) {
+		if(!element) {
+			var model = this.getView().getModel();
+			var tabs = model.getProperty('/tabs');
+			this._calculate(tabs[0]);
+		} else {
+			var elemName = element.getSource().getId();
+			var id = parseInt(elemName.substring(elemName.indexOf('myTabContainer') + 15)); //"__input0-view1--myTabContainer-0"
+			var model = this.getView().getModel();
+			var tabs = model.getProperty('/tabs');
+			this._calculate(tabs[id]);
+		}
+	  },
+	  _calculate: function(model) {
+		var darlehnsbetrag = model.input.darlehnsbetrag * 1;
+		var sollzins = model.input.sollzins / 100;
+		var anfangstilgung = model.input.anfangstilgung / 100;
+		var zinsbindung = model.input.zinsbindung * 1;
+		var alter = model.input.alter * 1;
 		
 		var sollzinsBetrag = darlehnsbetrag * sollzins;
 		var anfangstilgungBetrag = darlehnsbetrag * anfangstilgung;
@@ -49,11 +84,11 @@ sap.ui.define([
 		var rateMonat = rateJahr / 12;
 		var alterZinsBindung = 1*alter+ 1*zinsbindung;
 
-		model.setProperty('/input/sollzinsBetrag', sollzinsBetrag);
-		model.setProperty('/input/anfangstilgungBetrag', anfangstilgungBetrag);
-		model.setProperty('/input/rateJahr', rateJahr);
-		model.setProperty('/input/rateMonat', rateMonat);
-		model.setProperty('/input/alterZinsBindung', alterZinsBindung);
+		model.input.sollzinsBetrag = sollzinsBetrag;
+		model.input.anfangstilgungBetrag = anfangstilgungBetrag;
+		model.input.rateJahr = rateJahr;
+		model.input.rateMonat = rateMonat;
+		model.input.alterZinsBindung = alterZinsBindung;
 
 
 		var zinsSumme = 0;
@@ -75,11 +110,11 @@ sap.ui.define([
 			//$('#table').html($('#table').html() + next.zinsen + '|' + next.tilgung + '|' + next.restSchuld + '<br>');
 		}
 
-		model.setProperty('/input/zinsSumme', zinsSumme);
-		model.setProperty('/input/tilgungSumme', tilgungSumme);
+		model.input.zinsSumme = zinsSumme;
+		model.input.tilgungSumme = tilgungSumme;
 		var summeAlles = zinsSumme + tilgungSumme;
-		model.setProperty('/input/summeAlles', summeAlles);
-		model.setProperty('/input/restSchuld', restSchuld);
+		model.input.summeAlles = summeAlles;
+		model.input.restSchuld = restSchuld;
 		
 		
 		var dataYear = [];
@@ -95,8 +130,7 @@ sap.ui.define([
 			dataYear[y+1] = {year: y+1, zinsen: zinsen, tilgung: tilgung, restSchuld: rest};
 			if(rest <= 0) break;
 		}
-        model.setProperty('/dataYear', dataYear);
-
+        model.dataYear = dataYear;
       }
 
    });

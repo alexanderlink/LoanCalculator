@@ -9,11 +9,11 @@
 				showAddNewButton="true"
 				addNewButtonPress="addNewButtonPressHandler" itemClose="itemCloseHandler">
 	<items >
-		<TabContainerItem name="{input/darlehnsbetrag}" modified="false">
+		<TabContainerItem name="{tabTitle}" modified="false">
 			<content>
 
 
-
+<Page visible="{= ${index} > 0 }">
 <Panel headerText="Input" expandable="true" expanded="true" width="auto">
   <content>
    <Input
@@ -79,8 +79,6 @@
   </content>
 </Panel>
 
-
-
 <Panel headerText="Table" expandable="true" expanded="true" width="auto">
   <content>
     <Table
@@ -113,6 +111,50 @@
     </Table>
   </content>
 </Panel>
+</Page>
+
+
+
+
+
+<Page visible="{= ${index} === 0 }">
+   <Input
+      value="{input/darlehnsbetrag}"
+      description="Darlehnsbetrag €"
+      valueLiveUpdate="true" liveChange="calculate" type="Number" width="33%"/>
+
+	<Input description="Sollzins Betrag"
+		value="{input/sollzinsBetrag}"
+		valueLiveUpdate="true" liveChange="calculate" width="33%"/>
+
+	<Input description="Anfangstilgung Betrag"
+		value="{input/anfangstilgungBetrag}"
+		valueLiveUpdate="true" enabled="false" width="33%"/>
+
+	<Input description="Rate / Jahr"
+		value="{input/rateJahr}"
+		valueLiveUpdate="true" enabled="false" width="33%"/>
+
+	<Input description="Rate / Monat"
+		value="{input/rateMonat}"
+		valueLiveUpdate="true" enabled="false" width="33%"/>
+
+	<Input description="Zins Summe"
+		value="{input/zinsSumme}"
+		valueLiveUpdate="true" enabled="false" width="33%"/>
+
+	<Input description="Tilgung Summe"
+		value="{input/tilgungSumme}"
+		valueLiveUpdate="true" enabled="false" width="33%"/>
+
+	<Input description="Summe Alles"
+		value="{input/summeAlles}"
+		valueLiveUpdate="true" enabled="false" width="33%"/>
+
+	<Input description="Restschuld"
+		value="{input/restSchuld}"
+		valueLiveUpdate="true" enabled="false" width="33%"/>
+</Page>
 
 
 

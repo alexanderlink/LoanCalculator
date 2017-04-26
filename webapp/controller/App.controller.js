@@ -7,7 +7,14 @@ sap.ui.define([
       onInit : function () {
          // set data model on view
          var oData = {
-			tabs: [{
+			tabs: [
+				{
+					tabTitle: 'Overview', 
+					index: 0
+				},
+				{
+					tabTitle: 'Darlehn',
+					index: 1,
 				input: {
 					darlehnsbetrag: 70000,
 					sollzins: 1.1,
@@ -31,6 +38,8 @@ sap.ui.define([
 				*/
 			},
 			{
+					tabTitle: 'Darlehn',
+					index: 2,
 				input: {
 					darlehnsbetrag: 80000,
 					sollzins: 1.1,
@@ -56,13 +65,20 @@ sap.ui.define([
          };
          var oModel = new JSONModel(oData);
          this.getView().setModel(oModel);
-         this.calculate();
+		 var _this = this;
+         setTimeout(function() {
+			 _this.calculate();
+		 }, 1);
       },
       calculate: function(element) {
 		if(!element) {
 			var model = this.getView().getModel();
 			var tabs = model.getProperty('/tabs');
-			this._calculate(tabs[0]);
+			var _this = this;
+			tabs.forEach(function(tab) {
+				_this._calculate(tab);
+			});
+			this._collectOverview();
 		} else {
 			var elemName = element.getSource().getId();
 			var id = parseInt(elemName.substring(elemName.indexOf('myTabContainer') + 15)); //"__input0-view1--myTabContainer-0"
@@ -70,8 +86,10 @@ sap.ui.define([
 			var tabs = model.getProperty('/tabs');
 			this._calculate(tabs[id]);
 		}
+		model.refresh(true);
 	  },
 	  _calculate: function(model) {
+		if(model.index <= 0) return;
 		var darlehnsbetrag = model.input.darlehnsbetrag * 1;
 		var sollzins = model.input.sollzins / 100;
 		var anfangstilgung = model.input.anfangstilgung / 100;
@@ -116,6 +134,7 @@ sap.ui.define([
 		model.input.summeAlles = summeAlles;
 		model.input.restSchuld = restSchuld;
 		
+		model.tabTitle = '' + darlehnsbetrag;
 		
 		var dataYear = [];
 		dataYear[0] = {year: '', zinsen: 0, tilgung: 0, restSchuld: darlehnsbetrag};
@@ -131,7 +150,38 @@ sap.ui.define([
 			if(rest <= 0) break;
 		}
         model.dataYear = dataYear;
-      }
+      },
+
+
+	  _collectOverview: function() {
+		var model = this.getView().getModel();
+		var tabs = model.getProperty('/tabs');
+		var main = tabs[0];
+		main.input = {
+			darlehnsbetrag: 0,
+			sollzinsBetrag: 0,
+			anfangstilgungBetrag: 0,
+			rateJahr: 0,
+			rateMonat: 0,
+			zinsSumme: 0,
+			tilgungSumme: 0,
+			summeAlles: 0,
+			restSchuld: 0
+		};
+		tabs.forEach(function(tab) {
+			if(tab.index > 0) {
+				main.input.darlehnsbetrag += tab.input.darlehnsbetrag;
+				main.input.sollzinsBetrag += tab.input.sollzinsBetrag;
+				main.input.anfangstilgungBetrag += tab.input.anfangstilgungBetrag;
+				main.input.rateJahr += tab.input.rateJahr;
+				main.input.rateMonat += tab.input.rateMonat;
+				main.input.zinsSumme += tab.input.zinsSumme;
+				main.input.tilgungSumme += tab.input.tilgungSumme;
+				main.input.summeAlles += tab.input.summeAlles;
+				main.input.restSchuld += tab.input.restSchuld;
+			}
+		});
+	  }
 
    });
 });

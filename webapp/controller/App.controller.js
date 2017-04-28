@@ -6,6 +6,9 @@ sap.ui.define([
    return Controller.extend("de.alxsoft.controller.App", {
       onInit : function () {
          // set data model on view
+		 var oGeneralData = {
+			 currency: 'EUR'
+		 }
          var oData = {
 			tabs: [
 				{
@@ -63,6 +66,8 @@ sap.ui.define([
 				*/
 			}]
          };
+         var oModelGeneral = new JSONModel(oGeneralData);
+         this.getView().setModel(oModelGeneral, 'general');
          var oModel = new JSONModel(oData);
          this.getView().setModel(oModel);
 		 var _this = this;

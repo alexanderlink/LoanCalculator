@@ -8,7 +8,7 @@
 
 <TabContainer items="{ path: '/tabs' }" id="myTabContainer"
 				showAddNewButton="true"
-				addNewButtonPress="addNewButtonPressHandler" itemClose="itemCloseHandler">
+				addNewButtonPress="addNewButtonPressHandler" itemClose="itemCloseHandler" itemSelect="tabSelected">
 	<items >
 		<TabContainerItem name="{tabTitle}" modified="false">
 			<content>
@@ -121,6 +121,9 @@
     </Table>
   </content>
 </Panel>
+
+	<core:HTML content='&lt;div id=&#34;curve_chart_{index}&#34; style=&#34;width: 900px; height: 500px&#34;&gt;&lt;/div&gt;'></core:HTML>
+
 </Page>
 
 
@@ -174,7 +177,7 @@
 		valueLiveUpdate="true" enabled="false" width="33%"/>
 
 
-	<core:HTML content='&lt;div id=&#34;curve_chart&#34; style=&#34;width: 900px; height: 500px&#34;&gt;&lt;/div&gt;'></core:HTML>
+	<core:HTML content='&lt;div id=&#34;curve_chart_{index}&#34; style=&#34;width: 900px; height: 500px&#34;&gt;&lt;/div&gt;'></core:HTML>
 
 </Page>
 

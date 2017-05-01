@@ -70,36 +70,82 @@ sap.ui.define([
          this.getView().setModel(oModelGeneral, 'general');
          var oModel = new JSONModel(oData);
          this.getView().setModel(oModel);
-		 var _this = this;
+
+         google.charts.load('current', {'packages':['corechart']});
+    	 google.charts.setOnLoadCallback(
+			new function(_this) {
+				var _this = _this;
+				var onInitGoogle = function() {
+					var googleData = google.visualization.arrayToDataTable([
+					['Year', 'Sales', 'Expenses'],
+					['2004',  1000,      400],
+					['2005',  1170,      460],
+					['2006',  660,       1120],
+					['2007',  1030,      540]
+					]);
+
+					var options = {
+						title: 'Company Performance',
+						curveType: 'none',
+						legend: { position: 'bottom' }
+					};
+
+					var model = _this.getView().getModel();
+					var tabs = model.getProperty('/tabs');
+					tabs.forEach(function(tab) {
+						var container = document.getElementById('curve_chart_' + tab.index);
+						if(container) {
+							tab.googleChart = new google.visualization.LineChart(container);
+							tab.googleChart.draw(googleData, options);
+						}
+					})
+					
+					_this.asyncInitCalculate(_this);
+				};
+				return onInitGoogle;
+		 	}(this)
+		 );
+
+      },
+
+	  tabSelected: function(e) {
+		var tabName = e.getParameters().item.getName();
+		var elemName = e.getParameters().item.getId();
+		var id = parseInt(elemName.substring(elemName.indexOf('myTabContainer') + 15))
+		this.calculate();
+	  },
+
+	  googleChartDraw: function(tab) {
+		if(google.visualization) { //ready
+			var options = {
+				title: 'Company Performance',
+				curveType: 'none',
+				legend: { position: 'bottom' }
+			};
+			var data2 = this.convertObjectArrayToArrayArray(tab.dataYear);
+			var data2 = google.visualization.arrayToDataTable(data2);
+			var container = document.getElementById('curve_chart_' + tab.index);
+			if(container) {
+				tab.googleChart = new google.visualization.LineChart(container);
+				tab.googleChart.draw(data2, options);
+			}
+		}
+	  },
+
+	  convertObjectArrayToArrayArray: function(data) {
+		var data2 = [];
+		data2.push(Object.keys(data[0]));
+		data.forEach(function(row) {
+			data2.push(Object.values(row));
+		});
+		return data2;
+	  },
+
+	  asyncInitCalculate: function(_this) {
          setTimeout(function() {
 			 _this.calculate();
 		 }, 1);
-
-		 alert('Load google');
-          google.charts.load('current', {'packages':['corechart']});
-    	  google.charts.setOnLoadCallback(this.drawChart);
-      },
-
-	  drawChart: function() {
-		 alert('draw chart');
-        var googleData = google.visualization.arrayToDataTable([
-          ['Year', 'Sales', 'Expenses'],
-          ['2004',  1000,      400],
-          ['2005',  1170,      460],
-          ['2006',  660,       1120],
-          ['2007',  1030,      540]
-        ]);
-
-        var options = {
-          title: 'Company Performance',
-          curveType: 'none',
-          legend: { position: 'bottom' }
-        };
-
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-        chart.draw(googleData, options);
-		 alert('draw chart done');
-      },
+	  },
 
       calculate: function(element) {
 		if(!element) {
@@ -119,13 +165,13 @@ sap.ui.define([
 		}
 		model.refresh(true);
 	  },
-	  _calculate: function(model) {
-		if(model.index <= 0) return;
-		var darlehnsbetrag = model.input.darlehnsbetrag * 1;
-		var sollzins = model.input.sollzins / 100;
-		var anfangstilgung = model.input.anfangstilgung / 100;
-		var zinsbindung = model.input.zinsbindung * 1;
-		var alter = model.input.alter * 1;
+	  _calculate: function(tab) {
+		if(tab.index <= 0) return;
+		var darlehnsbetrag = tab.input.darlehnsbetrag * 1;
+		var sollzins = tab.input.sollzins / 100;
+		var anfangstilgung = tab.input.anfangstilgung / 100;
+		var zinsbindung = tab.input.zinsbindung * 1;
+		var alter = tab.input.alter * 1;
 		
 		var sollzinsBetrag = darlehnsbetrag * sollzins;
 		var anfangstilgungBetrag = darlehnsbetrag * anfangstilgung;
@@ -133,11 +179,11 @@ sap.ui.define([
 		var rateMonat = rateJahr / 12;
 		var alterZinsBindung = 1*alter+ 1*zinsbindung;
 
-		model.input.sollzinsBetrag = sollzinsBetrag;
-		model.input.anfangstilgungBetrag = anfangstilgungBetrag;
-		model.input.rateJahr = rateJahr;
-		model.input.rateMonat = rateMonat;
-		model.input.alterZinsBindung = alterZinsBindung;
+		tab.input.sollzinsBetrag = sollzinsBetrag;
+		tab.input.anfangstilgungBetrag = anfangstilgungBetrag;
+		tab.input.rateJahr = rateJahr;
+		tab.input.rateMonat = rateMonat;
+		tab.input.alterZinsBindung = alterZinsBindung;
 
 
 		var zinsSumme = 0;
@@ -159,13 +205,13 @@ sap.ui.define([
 			//$('#table').html($('#table').html() + next.zinsen + '|' + next.tilgung + '|' + next.restSchuld + '<br>');
 		}
 
-		model.input.zinsSumme = zinsSumme;
-		model.input.tilgungSumme = tilgungSumme;
+		tab.input.zinsSumme = zinsSumme;
+		tab.input.tilgungSumme = tilgungSumme;
 		var summeAlles = zinsSumme + tilgungSumme;
-		model.input.summeAlles = summeAlles;
-		model.input.restSchuld = restSchuld;
+		tab.input.summeAlles = summeAlles;
+		tab.input.restSchuld = restSchuld;
 		
-		model.tabTitle = '' + darlehnsbetrag;
+		tab.tabTitle = '' + darlehnsbetrag;
 		
 		var dataYear = [];
 		dataYear[0] = {year: '', zinsen: 0, tilgung: 0, restSchuld: darlehnsbetrag};
@@ -180,7 +226,9 @@ sap.ui.define([
 			dataYear[y+1] = {year: y+1, zinsen: zinsen, tilgung: tilgung, restSchuld: rest};
 			if(rest <= 0) break;
 		}
-        model.dataYear = dataYear;
+        tab.dataYear = dataYear;
+		
+		this.googleChartDraw(tab);
       },
 
 
@@ -212,6 +260,7 @@ sap.ui.define([
 				main.input.restSchuld += tab.input.restSchuld;
 			}
 		});
+		this.googleChartDraw(tabs[1]); //DUMMY
 	  }
 
    });

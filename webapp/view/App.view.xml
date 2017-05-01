@@ -4,6 +4,7 @@
    xmlns:mvc="sap.ui.core.mvc"
    xmlns:u="sap.ui.unified"
    xmlns:core="sap.ui.core"
+   xmlns:l="sap.ui.layout"   
    >
 
 <TabContainer items="{ path: '/tabs' }" id="myTabContainer"
@@ -91,38 +92,49 @@
 
 <Panel headerText="Table" expandable="true" expanded="true" width="auto">
   <content>
-    <Table
-		inset="false"
-		items="{path: 'dataYear'}">
-		<columns>
-			<Column>
-				<Text text="Jahr" />
-			</Column>
-			<Column width="8em">
-				<Text text="Zinsen" />
-			</Column>
-			<Column width="8em" minScreenWidth="Tablet" demandPopin="true">
-				<Text text="Tilgung" />
-			</Column>
-			<Column width="8em" minScreenWidth="Tablet" demandPopin="true">
-				<Text text="Restschuld" />
-			</Column>
-		</columns>
-		<items>
-			<ColumnListItem>
-				<cells>
-					<Text text="{year}" />
-					<u:Currency value="{zinsen}" currency="EUR" useSymbol="true" />
-					<u:Currency value="{tilgung}" currency="EUR" useSymbol="true" />
-					<u:Currency value="{restSchuld}" currency="EUR" useSymbol="true" />
-				</cells>
-			</ColumnListItem>
-		</items>
-    </Table>
+
+  	<l:Grid
+		class="sapUiSmallMarginTop"
+		hSpacing="2"
+		defaultSpan="L6 M6 S12">
+		<l:content>
+
+		<Table
+			inset="false"
+			items="{path: 'dataYear'}">
+			<columns>
+				<Column>
+					<Text text="Jahr" />
+				</Column>
+				<Column width="8em">
+					<Text text="Zinsen" />
+				</Column>
+				<Column width="8em" minScreenWidth="Tablet" demandPopin="true">
+					<Text text="Tilgung" />
+				</Column>
+				<Column width="8em" minScreenWidth="Tablet" demandPopin="true">
+					<Text text="Restschuld" />
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem>
+					<cells>
+						<Text text="{year}" />
+						<u:Currency value="{zinsen}" currency="EUR" useSymbol="true" />
+						<u:Currency value="{tilgung}" currency="EUR" useSymbol="true" />
+						<u:Currency value="{restSchuld}" currency="EUR" useSymbol="true" />
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+
+		<core:HTML content='&lt;div id=&#34;curve_chart_{index}&#34; style=&#34;width: 900px; height: 500px&#34;&gt;&lt;/div&gt;'></core:HTML>
+
+		</l:content>
+	</l:Grid>		
   </content>
 </Panel>
 
-	<core:HTML content='&lt;div id=&#34;curve_chart_{index}&#34; style=&#34;width: 900px; height: 500px&#34;&gt;&lt;/div&gt;'></core:HTML>
 
 </Page>
 

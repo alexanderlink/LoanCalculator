@@ -76,7 +76,7 @@ sap.ui.define([
 			new function(_this) {
 				var _this = _this;
 				var onInitGoogle = function() {
-					var googleData = google.visualization.arrayToDataTable([
+					var dummyData = google.visualization.arrayToDataTable([
 					['Year', 'Sales', 'Expenses'],
 					['2004',  1000,      400],
 					['2005',  1170,      460],
@@ -85,7 +85,7 @@ sap.ui.define([
 					]);
 
 					var options = {
-						title: 'Company Performance',
+						title: 'Loan Trend',
 						curveType: 'none',
 						legend: { position: 'bottom' }
 					};
@@ -96,7 +96,7 @@ sap.ui.define([
 						var container = document.getElementById('curve_chart_' + tab.index);
 						if(container) {
 							tab.googleChart = new google.visualization.LineChart(container);
-							tab.googleChart.draw(googleData, options);
+							tab.googleChart.draw(dummyData, options);
 						}
 					})
 					
@@ -118,7 +118,7 @@ sap.ui.define([
 	  googleChartDraw: function(tab) {
 		if(google.visualization) { //ready
 			var options = {
-				title: 'Company Performance',
+				title: 'Loan Trend',
 				curveType: 'none',
 				legend: { position: 'bottom' }
 			};
@@ -128,6 +128,12 @@ sap.ui.define([
 			if(container) {
 				tab.googleChart = new google.visualization.LineChart(container);
 				tab.googleChart.draw(data2, options);
+			} else {
+				var _this = this;
+				setTimeout(function() {
+					_this.googleChartDraw(tab);
+					console.log('TIMEOUT');
+				}, 1);
 			}
 		}
 	  },

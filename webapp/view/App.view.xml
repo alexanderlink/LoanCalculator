@@ -3,6 +3,7 @@
    xmlns="sap.m"
    xmlns:mvc="sap.ui.core.mvc"
    xmlns:u="sap.ui.unified"
+   xmlns:core="sap.ui.core"
    >
 
 <TabContainer items="{ path: '/tabs' }" id="myTabContainer"
@@ -171,6 +172,10 @@
 		value="{ parts: [ {path: 'input/restSchuld'}, {path: 'general>/currency'} ],
 			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
 		valueLiveUpdate="true" enabled="false" width="33%"/>
+
+
+	<core:HTML content='&lt;div id=&#34;curve_chart&#34; style=&#34;width: 900px; height: 500px&#34;&gt;&lt;/div&gt;'></core:HTML>
+
 </Page>
 
 

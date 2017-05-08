@@ -133,7 +133,7 @@ sap.ui.define([
 				setTimeout(function() {
 					_this.googleChartDraw(tab);
 					console.log('TIMEOUT');
-				}, 1);
+				}, 1000);
 			}
 		}
 	  },
@@ -150,7 +150,7 @@ sap.ui.define([
 	  asyncInitCalculate: function(_this) {
          setTimeout(function() {
 			 _this.calculate();
-		 }, 1);
+		 }, 1000);
 	  },
 
       calculate: function(element) {
@@ -220,7 +220,7 @@ sap.ui.define([
 		tab.tabTitle = '' + darlehnsbetrag;
 		
 		var dataYear = [];
-		dataYear[0] = {year: '', zinsen: 0, tilgung: 0, restSchuld: darlehnsbetrag};
+		dataYear[0] = {year: '0', zinsen: 0, tilgung: 0, restSchuld: darlehnsbetrag};
 		for(var y = 0; y < zinsbindung; y++) {
 			var zinsen = 0;
 			var tilgung = 0;
@@ -253,6 +253,17 @@ sap.ui.define([
 			summeAlles: 0,
 			restSchuld: 0
 		};
+		var that = this;
+
+		var maxYears = 0;
+		tabs.forEach(function(tab) {
+			if(tab.index > 0) maxYears = Math.max(maxYears, tab.dataYear.length - 1);
+		});
+		main.dataYear = [];
+		for(var year = 0; year <= maxYears; year++) {
+			main.dataYear.push({ year: year, zinsen: 0, tilgung: 0, restSchuld: 0 })
+		}
+
 		tabs.forEach(function(tab) {
 			if(tab.index > 0) {
 				main.input.darlehnsbetrag += tab.input.darlehnsbetrag;
@@ -264,10 +275,26 @@ sap.ui.define([
 				main.input.tilgungSumme += tab.input.tilgungSumme;
 				main.input.summeAlles += tab.input.summeAlles;
 				main.input.restSchuld += tab.input.restSchuld;
+				that._overviewAddDataFromTab(main.dataYear, tab.dataYear, maxYears);
 			}
 		});
-		this.googleChartDraw(tabs[1]); //DUMMY
-	  }
+		this.googleChartDraw(tabs[0]);
+	  },
 
+	  _overviewAddDataFromTab: function(target, tabData, maxYears) {
+		  var restSchuld = 0;
+		  tabData.forEach(function(entry) {
+			var year = parseInt(entry.year);
+			target[year].zinsen += entry.zinsen;
+			target[year].tilgung += entry.tilgung;
+			target[year].restSchuld += entry.restSchuld;
+			restSchuld = entry.restSchuld;
+		  });
+		  for(var year = tabData.length; year <= maxYears; year++) {
+			target[year].zinsen = 0;
+			target[year].tilgung = 0;
+			target[year].restSchuld = restSchuld;
+		  }
+	  }
    });
 });

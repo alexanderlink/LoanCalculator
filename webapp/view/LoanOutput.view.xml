@@ -1,0 +1,49 @@
+<mvc:View
+   controllerName="de.alxsoft.controller.LoanOutput"
+   xmlns="sap.m"
+   xmlns:mvc="sap.ui.core.mvc"
+   xmlns:u="sap.ui.unified"
+   xmlns:core="sap.ui.core"
+   xmlns:l="sap.ui.layout"   
+   >
+
+	<Input description="Anfangstilgung Betrag"
+		value="{ parts: [ {path: 'input/anfangstilgungBetrag'}, {path: 'general>/currency'} ],
+			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
+		valueLiveUpdate="true" enabled="false" width="33%"/>
+
+	<Input description="Rate / Jahr"
+		value="{ parts: [ {path: 'input/rateJahr'}, {path: 'general>/currency'} ],
+			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
+		valueLiveUpdate="true" enabled="false" width="33%"/>
+
+	<Input description="Rate / Monat"
+		value="{ parts: [ {path: 'input/rateMonat'}, {path: 'general>/currency'} ],
+			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
+		valueLiveUpdate="true" enabled="false" width="33%"/>
+
+	<Input description="Zins Summe"
+		value="{ parts: [ {path: 'input/zinsSumme'}, {path: 'general>/currency'} ],
+			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
+		valueLiveUpdate="true" enabled="false" width="33%"/>
+
+	<Input description="Tilgung Summe"
+		value="{ parts: [ {path: 'input/tilgungSumme'}, {path: 'general>/currency'} ],
+			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
+		valueLiveUpdate="true" enabled="false" width="33%"/>
+
+	<Input description="Summe Alles"
+		value="{ parts: [ {path: 'input/summeAlles'}, {path: 'general>/currency'} ],
+			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
+		valueLiveUpdate="true" enabled="false" width="33%"/>
+
+	<Input description="Restschuld"
+		value="{ parts: [ {path: 'input/restSchuld'}, {path: 'general>/currency'} ],
+			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
+		valueLiveUpdate="true" enabled="false" width="33%"/>
+
+	<Input description="Alter nach Zinsbindung"
+		value="{ path: 'input/alterZinsBindung', type: 'sap.ui.model.type.Integer'}"
+		valueLiveUpdate="true" enabled="false" width="33%"/>
+
+</mvc:View>

@@ -5,6 +5,7 @@
    xmlns:u="sap.ui.unified"
    xmlns:core="sap.ui.core"
    xmlns:l="sap.ui.layout"   
+   xmlns:alx="de.alxsoft.view"
    >
 
 <TabContainer items="{ path: '/tabs' }" id="myTabContainer"
@@ -18,75 +19,13 @@
 <Page visible="{= ${index} > 0 }">
 <Panel headerText="Input" expandable="true" expanded="true" width="auto">
   <content>
-   <Input
-		value="{ parts: [ {path: 'input/darlehnsbetrag'}, {path: 'general>/currency'} ],
-			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
-      description="Darlehnsbetrag €"
-      valueLiveUpdate="true" liveChange="calculate" width="33%"/>
-
-	<Input description="Sollzins %"
-		value="{ path: 'input/sollzins', type: 'sap.ui.model.type.Float', formatOptions: { decimals: 2 } }"
-		valueLiveUpdate="true" liveChange="calculate" width="33%"/>
-
-	<Input description="Zinsbindung Jahre"
-		value="{ path: 'input/zinsbindung', type: 'sap.ui.model.type.Integer'}"
-		valueLiveUpdate="true" liveChange="calculate" width="33%"/>
-
-	<Input description="Anfangstilgung %"
-		value="{ path: 'input/anfangstilgung', type: 'sap.ui.model.type.Float', formatOptions: { decimals: 2 } }"
-		valueLiveUpdate="true" liveChange="calculate" width="33%"/>
-
-	<Input description="Alter"
-		value="{ path: 'input/alter', type: 'sap.ui.model.type.Integer'}"
-		valueLiveUpdate="true" liveChange="calculate" width="33%"/>
-
-	<Input description="Sollzins Betrag"
-		value="{ parts: [ {path: 'input/sollzinsBetrag'}, {path: 'general>/currency'} ],
-			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
-		valueLiveUpdate="true" enabled="false" width="33%"/>
+	<mvc:XMLView viewName="de.alxsoft.view.LoanInput"/>
   </content>
 </Panel>
 
 <Panel headerText="Output" expandable="true" expanded="false" width="auto">
   <content>
-	<Input description="Anfangstilgung Betrag"
-		value="{ parts: [ {path: 'input/anfangstilgungBetrag'}, {path: 'general>/currency'} ],
-			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
-		valueLiveUpdate="true" enabled="false" width="33%"/>
-
-	<Input description="Rate / Jahr"
-		value="{ parts: [ {path: 'input/rateJahr'}, {path: 'general>/currency'} ],
-			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
-		valueLiveUpdate="true" enabled="false" width="33%"/>
-
-	<Input description="Rate / Monat"
-		value="{ parts: [ {path: 'input/rateMonat'}, {path: 'general>/currency'} ],
-			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
-		valueLiveUpdate="true" enabled="false" width="33%"/>
-
-	<Input description="Zins Summe"
-		value="{ parts: [ {path: 'input/zinsSumme'}, {path: 'general>/currency'} ],
-			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
-		valueLiveUpdate="true" enabled="false" width="33%"/>
-
-	<Input description="Tilgung Summe"
-		value="{ parts: [ {path: 'input/tilgungSumme'}, {path: 'general>/currency'} ],
-			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
-		valueLiveUpdate="true" enabled="false" width="33%"/>
-
-	<Input description="Summe Alles"
-		value="{ parts: [ {path: 'input/summeAlles'}, {path: 'general>/currency'} ],
-			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
-		valueLiveUpdate="true" enabled="false" width="33%"/>
-
-	<Input description="Restschuld"
-		value="{ parts: [ {path: 'input/restSchuld'}, {path: 'general>/currency'} ],
-			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
-		valueLiveUpdate="true" enabled="false" width="33%"/>
-
-	<Input description="Alter nach Zinsbindung"
-		value="{ path: 'input/alterZinsBindung', type: 'sap.ui.model.type.Integer'}"
-		valueLiveUpdate="true" enabled="false" width="33%"/>
+	<mvc:XMLView viewName="de.alxsoft.view.LoanOutput"/>
   </content>
 </Panel>
 
@@ -99,34 +38,7 @@
 		defaultSpan="L6 M6 S12">
 		<l:content>
 
-		<Table
-			inset="false"
-			items="{path: 'dataYear'}">
-			<columns>
-				<Column>
-					<Text text="Jahr" />
-				</Column>
-				<Column width="8em">
-					<Text text="Zinsen" />
-				</Column>
-				<Column width="8em" minScreenWidth="Tablet" demandPopin="true">
-					<Text text="Tilgung" />
-				</Column>
-				<Column width="8em" minScreenWidth="Tablet" demandPopin="true">
-					<Text text="Restschuld" />
-				</Column>
-			</columns>
-			<items>
-				<ColumnListItem>
-					<cells>
-						<Text text="{year}" />
-						<u:Currency value="{zinsen}" currency="EUR" useSymbol="true" />
-						<u:Currency value="{tilgung}" currency="EUR" useSymbol="true" />
-						<u:Currency value="{restSchuld}" currency="EUR" useSymbol="true" />
-					</cells>
-				</ColumnListItem>
-			</items>
-		</Table>
+		<mvc:XMLView viewName="de.alxsoft.view.LoanTable"/>
 
 		<core:HTML content='&lt;div id=&#34;curve_chart_{index}&#34; style=&#34;width: 900px; height: 500px&#34;&gt;&lt;/div&gt;'></core:HTML>
 
@@ -145,50 +57,7 @@
 <Page visible="{= ${index} === 0 }">
 <Panel headerText="Input" expandable="true" expanded="true" width="auto">
   <content>
-    <Input description="Darlehnsbetrag €"
-		value="{ parts: [ {path: 'input/darlehnsbetrag'}, {path: 'general>/currency'} ],
-			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
-        valueLiveUpdate="true" liveChange="calculate" width="33%"/>
-
-	<Input description="Sollzins Betrag"
-		value="{ parts: [ {path: 'input/sollzinsBetrag'}, {path: 'general>/currency'} ],
-			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
-		valueLiveUpdate="true" liveChange="calculate" width="33%"/>
-
-	<Input description="Anfangstilgung Betrag"
-		value="{ parts: [ {path: 'input/anfangstilgungBetrag'}, {path: 'general>/currency'} ],
-			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
-		valueLiveUpdate="true" enabled="false" width="33%"/>
-
-	<Input description="Rate / Jahr"
-		value="{ parts: [ {path: 'input/rateJahr'}, {path: 'general>/currency'} ],
-			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
-		valueLiveUpdate="true" enabled="false" width="33%"/>
-
-	<Input description="Rate / Monat"
-		value="{ parts: [ {path: 'input/rateMonat'}, {path: 'general>/currency'} ],
-			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
-		valueLiveUpdate="true" enabled="false" width="33%"/>
-
-	<Input description="Zins Summe"
-		value="{ parts: [ {path: 'input/zinsSumme'}, {path: 'general>/currency'} ],
-			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
-		valueLiveUpdate="true" enabled="false" width="33%"/>
-
-	<Input description="Tilgung Summe"
-		value="{ parts: [ {path: 'input/tilgungSumme'}, {path: 'general>/currency'} ],
-			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
-		valueLiveUpdate="true" enabled="false" width="33%"/>
-
-	<Input description="Summe Alles"
-		value="{ parts: [ {path: 'input/summeAlles'}, {path: 'general>/currency'} ],
-			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
-		valueLiveUpdate="true" enabled="false" width="33%"/>
-
-	<Input description="Restschuld"
-		value="{ parts: [ {path: 'input/restSchuld'}, {path: 'general>/currency'} ],
-			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
-		valueLiveUpdate="true" enabled="false" width="33%"/>
+		<mvc:XMLView viewName="de.alxsoft.view.OverviewInput"/>
   </content>
 </Panel>
 
@@ -201,36 +70,9 @@
 		defaultSpan="L6 M6 S12">
 		<l:content>
 
-		<Table
-			inset="false"
-			items="{path: 'dataYear'}">
-			<columns>
-				<Column>
-					<Text text="Jahr" />
-				</Column>
-				<Column width="8em">
-					<Text text="Zinsen" />
-				</Column>
-				<Column width="8em" minScreenWidth="Tablet" demandPopin="true">
-					<Text text="Tilgung" />
-				</Column>
-				<Column width="8em" minScreenWidth="Tablet" demandPopin="true">
-					<Text text="Restschuld" />
-				</Column>
-			</columns>
-			<items>
-				<ColumnListItem>
-					<cells>
-						<Text text="{year}" />
-						<u:Currency value="{zinsen}" currency="EUR" useSymbol="true" />
-						<u:Currency value="{tilgung}" currency="EUR" useSymbol="true" />
-						<u:Currency value="{restSchuld}" currency="EUR" useSymbol="true" />
-					</cells>
-				</ColumnListItem>
-			</items>
-		</Table>
+		<mvc:XMLView viewName="de.alxsoft.view.LoanTable"/>
 
-	<core:HTML content='&lt;div id=&#34;curve_chart_{index}&#34; style=&#34;width: 900px; height: 500px&#34;&gt;&lt;/div&gt;'></core:HTML>
+	    <core:HTML content='&lt;div id=&#34;curve_chart_{index}&#34; style=&#34;width: 900px; height: 500px&#34;&gt;&lt;/div&gt;'></core:HTML>
 
 		</l:content>
 	</l:Grid>		

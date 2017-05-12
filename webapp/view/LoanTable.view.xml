@@ -1,0 +1,39 @@
+<mvc:View
+   controllerName="de.alxsoft.controller.LoanTable"
+   xmlns="sap.m"
+   xmlns:mvc="sap.ui.core.mvc"
+   xmlns:u="sap.ui.unified"
+   xmlns:core="sap.ui.core"
+   xmlns:l="sap.ui.layout"   
+   >
+
+	<Table
+		inset="false"
+		items="{path: 'dataYear'}">
+		<columns>
+			<Column>
+				<Text text="Jahr" />
+			</Column>
+			<Column width="8em">
+				<Text text="Zinsen" />
+			</Column>
+			<Column width="8em" minScreenWidth="Tablet" demandPopin="true">
+				<Text text="Tilgung" />
+			</Column>
+			<Column width="8em" minScreenWidth="Tablet" demandPopin="true">
+				<Text text="Restschuld" />
+			</Column>
+		</columns>
+		<items>
+			<ColumnListItem>
+				<cells>
+					<Text text="{year}" />
+					<u:Currency value="{zinsen}" currency="EUR" useSymbol="true" />
+					<u:Currency value="{tilgung}" currency="EUR" useSymbol="true" />
+					<u:Currency value="{restSchuld}" currency="EUR" useSymbol="true" />
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+
+</mvc:View>

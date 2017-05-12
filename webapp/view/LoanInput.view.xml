@@ -1,0 +1,37 @@
+<mvc:View
+   controllerName="de.alxsoft.controller.LoanInput"
+   xmlns="sap.m"
+   xmlns:mvc="sap.ui.core.mvc"
+   xmlns:u="sap.ui.unified"
+   xmlns:core="sap.ui.core"
+   xmlns:l="sap.ui.layout"   
+   >
+
+   <Input
+		value="{ parts: [ {path: 'input/darlehnsbetrag'}, {path: 'general>/currency'} ],
+			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
+      description="Darlehnsbetrag €"
+      valueLiveUpdate="true" liveChange="calculate" width="33%"/>
+
+	<Input description="Sollzins %"
+		value="{ path: 'input/sollzins', type: 'sap.ui.model.type.Float', formatOptions: { decimals: 2 } }"
+		valueLiveUpdate="true" liveChange="calculate" width="33%"/>
+
+	<Input description="Zinsbindung Jahre"
+		value="{ path: 'input/zinsbindung', type: 'sap.ui.model.type.Integer'}"
+		valueLiveUpdate="true" liveChange="calculate" width="33%"/>
+
+	<Input description="Anfangstilgung %"
+		value="{ path: 'input/anfangstilgung', type: 'sap.ui.model.type.Float', formatOptions: { decimals: 2 } }"
+		valueLiveUpdate="true" liveChange="calculate" width="33%"/>
+
+	<Input description="Alter"
+		value="{ path: 'input/alter', type: 'sap.ui.model.type.Integer'}"
+		valueLiveUpdate="true" liveChange="calculate" width="33%"/>
+
+	<Input description="Sollzins Betrag"
+		value="{ parts: [ {path: 'input/sollzinsBetrag'}, {path: 'general>/currency'} ],
+			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
+		valueLiveUpdate="true" enabled="false" width="33%"/>
+
+</mvc:View>

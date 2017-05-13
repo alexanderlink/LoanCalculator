@@ -7,29 +7,28 @@
    xmlns:l="sap.ui.layout"   
    >
 
-   <Input
+   <Input description="Darlehnsbetrag €" tooltip="Darlehnsbetrag in Euro"
 		value="{ parts: [ {path: 'input/darlehnsbetrag'}, {path: 'general>/currency'} ],
 			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
-      description="Darlehnsbetrag €"
-      valueLiveUpdate="true" change="calculate" width="33%"/>
+        valueLiveUpdate="true" change="calculate" width="33%"/>
 
-	<Input description="Sollzins %"
+	<Input description="Sollzins %" tooltip="Sollzins in Prozent"
 		value="{ path: 'input/sollzins', type: 'sap.ui.model.type.Float', formatOptions: { decimals: 2 } }"
 		valueLiveUpdate="true" change="calculate" width="33%"/>
 
-	<Input description="Zinsbindung Jahre"
+	<Input description="Sollzinsbindung Jahre" tooltip="Sollzinsbindung in Jahren"
 		value="{ path: 'input/zinsbindung', type: 'sap.ui.model.type.Integer'}"
 		valueLiveUpdate="true" change="calculate" width="33%"/>
 
-	<Input description="Anfangstilgung %"
+	<Input description="Anfangstilgung %" tooltip="Anfangstilgung in Prozent"
 		value="{ path: 'input/anfangstilgung', type: 'sap.ui.model.type.Float', formatOptions: { decimals: 2 } }"
 		valueLiveUpdate="true" change="calculate" width="33%"/>
 
-	<Input description="Alter"
+	<Input description="Alter" tooltip="Ihr aktuelles Alter"
 		value="{ path: 'input/alter', type: 'sap.ui.model.type.Integer'}"
 		valueLiveUpdate="true" change="calculate" width="33%"/>
 
-	<Input description="Sollzins Betrag"
+	<Input description="Sollzins Betrag" tooltip="Sollzinsbetrag = Darlehnsbetrag * Sollzins %"
 		value="{ parts: [ {path: 'input/sollzinsBetrag'}, {path: 'general>/currency'} ],
 			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
 		valueLiveUpdate="true" enabled="false" width="33%"/>

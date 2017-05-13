@@ -54,7 +54,7 @@
 
 
 <Page visible="{= ${index} === 0 }">
-<Panel headerText="Input" expandable="true" expanded="true" width="auto">
+<Panel headerText="Overview" expandable="true" expanded="true" width="auto">
   <content>
 		<mvc:XMLView viewName="de.alxsoft.view.OverviewInput"/>
   </content>

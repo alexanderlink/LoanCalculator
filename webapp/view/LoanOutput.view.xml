@@ -7,42 +7,42 @@
    xmlns:l="sap.ui.layout"   
    >
 
-	<Input description="Anfangstilgung Betrag"
+	<Input description="Anfangstilgung Betrag (Jahr)" tooltip="Anfangstilgungsbetrag = Darlehnsbetrag * Anfangstilgung %"
 		value="{ parts: [ {path: 'input/anfangstilgungBetrag'}, {path: 'general>/currency'} ],
 			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
 		valueLiveUpdate="true" enabled="false" width="33%"/>
 
-	<Input description="Rate / Jahr"
+	<Input description="Rate / Jahr" tooltip="Rate pro Jahr = Sollzinsbetrag + Anfangstilgungsbetrag"
 		value="{ parts: [ {path: 'input/rateJahr'}, {path: 'general>/currency'} ],
 			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
 		valueLiveUpdate="true" enabled="false" width="33%"/>
 
-	<Input description="Rate / Monat"
+	<Input description="Rate / Monat" tooltip="Rate pro Monat = Rate pro Jahr / 12"
 		value="{ parts: [ {path: 'input/rateMonat'}, {path: 'general>/currency'} ],
 			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
 		valueLiveUpdate="true" enabled="false" width="33%"/>
 
-	<Input description="Zins Summe"
+	<Input description="Zins Summe (Laufzeit)" tooltip="Gesamtsumme der Zinsen während der Laufzeit"
 		value="{ parts: [ {path: 'input/zinsSumme'}, {path: 'general>/currency'} ],
 			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
 		valueLiveUpdate="true" enabled="false" width="33%"/>
 
-	<Input description="Tilgung Summe"
+	<Input description="Tilgung Summe (Laufzeit)" tooltip="Gesamtsumme der Tilgung während der Laufzeit"
 		value="{ parts: [ {path: 'input/tilgungSumme'}, {path: 'general>/currency'} ],
 			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
 		valueLiveUpdate="true" enabled="false" width="33%"/>
 
-	<Input description="Summe Alles"
+	<Input description="Summe Alles (Laufzeit)" tooltip="Gesamtsumme der Zahlungen (Zinsen und Tilgung) während der Laufzeit"
 		value="{ parts: [ {path: 'input/summeAlles'}, {path: 'general>/currency'} ],
 			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
 		valueLiveUpdate="true" enabled="false" width="33%"/>
 
-	<Input description="Restschuld"
+	<Input description="Restschuld" tooltip="Restschuld nach Ablauf der Sollzinsbindung"
 		value="{ parts: [ {path: 'input/restSchuld'}, {path: 'general>/currency'} ],
 			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
 		valueLiveUpdate="true" enabled="false" width="33%"/>
 
-	<Input description="Alter nach Zinsbindung"
+	<Input description="Alter nach Sollzinsbindung" tooltip="Ihr alter nach Ablauf der Sollzinsbindung"
 		value="{ path: 'input/alterZinsBindung', type: 'sap.ui.model.type.Integer'}"
 		valueLiveUpdate="true" enabled="false" width="33%"/>
 

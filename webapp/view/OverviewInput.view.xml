@@ -7,47 +7,47 @@
    xmlns:l="sap.ui.layout"   
    >
 
-    <Input description="Summe Darlehnsbetrag €"
+    <Input description="Summe Darlehnsbetrag €" tooltip="Darlehnsbetrag Summe aller Darlehns in Euro"
 		value="{ parts: [ {path: 'input/darlehnsbetrag'}, {path: 'general>/currency'} ],
 			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
         valueLiveUpdate="true" enabled="false" width="33%"/>
 
-	<Input description="Summe Sollzins Betrag"
+	<Input description="Summe Sollzins Betrag" tooltip="Sollzinsbetrag Summe aller Darlehns in Euro"
 		value="{ parts: [ {path: 'input/sollzinsBetrag'}, {path: 'general>/currency'} ],
 			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
 		valueLiveUpdate="true" enabled="false" width="33%"/>
 
-	<Input description="Summe Anfangstilgung Betrag"
+	<Input description="Summe Anfangstilgung Betrag" tooltip="Anfangstilgungsbetrag Summe aller Darlehns in Euro"
 		value="{ parts: [ {path: 'input/anfangstilgungBetrag'}, {path: 'general>/currency'} ],
 			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
 		valueLiveUpdate="true" enabled="false" width="33%"/>
 
-	<Input description="Summe Rate / Jahr"
+	<Input description="Summe Rate / Jahr" tooltip="Alle Raten pro Jahr = je Sollzinsbetrag + Anfangstilgungsbetrag"
 		value="{ parts: [ {path: 'input/rateJahr'}, {path: 'general>/currency'} ],
 			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
 		valueLiveUpdate="true" enabled="false" width="33%"/>
 
-	<Input description="Summe Rate / Monat"
+	<Input description="Summe Rate / Monat" tooltip="Alle Raten pro Monat"
 		value="{ parts: [ {path: 'input/rateMonat'}, {path: 'general>/currency'} ],
 			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
 		valueLiveUpdate="true" enabled="false" width="33%"/>
 
-	<Input description="Zins Summe"
+	<Input description="Zins Summe" tooltip="Gesamtsumme aller Zinsen am Ende aller Darlehns"
 		value="{ parts: [ {path: 'input/zinsSumme'}, {path: 'general>/currency'} ],
 			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
 		valueLiveUpdate="true" enabled="false" width="33%"/>
 
-	<Input description="Tilgung Summe"
+	<Input description="Tilgung Summe" tooltip="Gesamtsumme aller Tilgungungen am Ende aller Darlehns"
 		value="{ parts: [ {path: 'input/tilgungSumme'}, {path: 'general>/currency'} ],
 			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
 		valueLiveUpdate="true" enabled="false" width="33%"/>
 
-	<Input description="Summe Alles"
+	<Input description="Summe Alles" tooltip="Gesamtsumme der Zahlungen (Zinsen und Tilgung) am Ende aller Darlehns"
 		value="{ parts: [ {path: 'input/summeAlles'}, {path: 'general>/currency'} ],
 			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
 		valueLiveUpdate="true" enabled="false" width="33%"/>
 
-	<Input description="Restschuld nach {= ${dataYear}.length-1 } Jahren"
+	<Input description="Restschuld nach {= ${dataYear}.length-1 } Jahren" tooltip="Restschuld nach Ablauf aller Darlehns"
 		value="{ parts: [ {path: 'input/restSchuld'}, {path: 'general>/currency'} ],
 			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
 		valueLiveUpdate="true" enabled="false" width="33%"/>

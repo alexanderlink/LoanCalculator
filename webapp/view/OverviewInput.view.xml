@@ -7,27 +7,27 @@
    xmlns:l="sap.ui.layout"   
    >
 
-    <Input description="Darlehnsbetrag €"
+    <Input description="Summe Darlehnsbetrag €"
 		value="{ parts: [ {path: 'input/darlehnsbetrag'}, {path: 'general>/currency'} ],
 			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
-        valueLiveUpdate="true" liveChange="calculate" width="33%"/>
+        valueLiveUpdate="true" enabled="false" width="33%"/>
 
-	<Input description="Sollzins Betrag"
+	<Input description="Summe Sollzins Betrag"
 		value="{ parts: [ {path: 'input/sollzinsBetrag'}, {path: 'general>/currency'} ],
 			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
-		valueLiveUpdate="true" liveChange="calculate" width="33%"/>
+		valueLiveUpdate="true" enabled="false" width="33%"/>
 
-	<Input description="Anfangstilgung Betrag"
+	<Input description="Summe Anfangstilgung Betrag"
 		value="{ parts: [ {path: 'input/anfangstilgungBetrag'}, {path: 'general>/currency'} ],
 			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
 		valueLiveUpdate="true" enabled="false" width="33%"/>
 
-	<Input description="Rate / Jahr"
+	<Input description="Summe Rate / Jahr"
 		value="{ parts: [ {path: 'input/rateJahr'}, {path: 'general>/currency'} ],
 			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
 		valueLiveUpdate="true" enabled="false" width="33%"/>
 
-	<Input description="Rate / Monat"
+	<Input description="Summe Rate / Monat"
 		value="{ parts: [ {path: 'input/rateMonat'}, {path: 'general>/currency'} ],
 			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
 		valueLiveUpdate="true" enabled="false" width="33%"/>
@@ -47,7 +47,7 @@
 			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
 		valueLiveUpdate="true" enabled="false" width="33%"/>
 
-	<Input description="Restschuld"
+	<Input description="Restschuld nach {= ${dataYear}.length-1 } Jahren"
 		value="{ parts: [ {path: 'input/restSchuld'}, {path: 'general>/currency'} ],
 			type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true, decimals: 0 } }"
 		valueLiveUpdate="true" enabled="false" width="33%"/>

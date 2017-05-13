@@ -5,7 +5,6 @@
    xmlns:u="sap.ui.unified"
    xmlns:core="sap.ui.core"
    xmlns:l="sap.ui.layout"   
-   xmlns:alx="de.alxsoft.view"
    >
 
 <TabContainer items="{ path: '/tabs' }" id="myTabContainer"

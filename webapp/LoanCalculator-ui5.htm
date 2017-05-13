@@ -19,15 +19,15 @@
 		sap.ui.getCore().attachInit(function () {
 			// create a mobile app and display page1 initially
 			var app = new sap.m.App("myApp", {
-				initialPage: "view1"
+				initialPage: "AppView"
 			});
 			
-			var view1 = sap.ui.xmlview({
-			   id: 'view1',
+			var appView = sap.ui.xmlview({
+			   id: 'AppView',
                viewName : "de.alxsoft.view.App"
             });
 
-			app.addPage(view1);
+			app.addPage(appView);
 			app.placeAt("content");
 
 		});

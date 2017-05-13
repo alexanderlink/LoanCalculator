@@ -115,6 +115,48 @@ sap.ui.define([
 		this.calculate();
 	  },
 
+	  addNewButtonPressHandler: function(e) {
+		var model = this.getView().getModel();
+		var tabs = model.getProperty('/tabs');
+		var data = {
+			tabTitle: 'Darlehn',
+			index: tabs.length-1,
+			input: {
+				darlehnsbetrag: 0,
+				sollzins: 0,
+				zinsbindung: 0,
+				anfangstilgung: 0,
+				alter: 36,
+				sollzinsBetrag: 0,
+				anfangstilgungBetrag: 0,
+				rateJahr: 0,
+				rateMonat: 0,
+				zinsSumme: 0,
+				tilgungSumme: 0,
+				summeAlles: 0,
+				restSchuld: 0,
+				alterZinsBindung: 0
+			},
+			dataYear: []
+		};
+		tabs.push(data);
+		this.calculate();
+		model.refresh(true);
+	  },
+
+	  itemCloseHandler: function(e) {
+		var tabName = e.getParameters().item.getName();
+		var elemName = e.getParameters().item.getId();
+		var id = parseInt(elemName.substring(elemName.indexOf('myTabContainer') + 15))
+
+		var model = this.getView().getModel();
+		var tabs = model.getProperty('/tabs');
+		tabs.splice(id-1, 1);
+		model.refresh(true);
+
+		alert("close" + id);
+	  },
+
 	  googleChartDraw: function(tab) {
 		if(google.visualization) { //ready
 			var options = {
